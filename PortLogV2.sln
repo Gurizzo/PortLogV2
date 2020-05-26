@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortLogV2", "PortLogV2\PortLogV2.csproj", "{F3E40D6B-56FA-4530-9866-4BB904E9F9DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositorio", "Repositorio\Repositorio.csproj", "{1AA2F32A-2849-4796-8CC1-6A745617A9EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{6B9892DC-87AF-4CED-B8D4-0F5E3DD29564}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F3E40D6B-56FA-4530-9866-4BB904E9F9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3E40D6B-56FA-4530-9866-4BB904E9F9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3E40D6B-56FA-4530-9866-4BB904E9F9DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA2F32A-2849-4796-8CC1-6A745617A9EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA2F32A-2849-4796-8CC1-6A745617A9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA2F32A-2849-4796-8CC1-6A745617A9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA2F32A-2849-4796-8CC1-6A745617A9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9892DC-87AF-4CED-B8D4-0F5E3DD29564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9892DC-87AF-4CED-B8D4-0F5E3DD29564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9892DC-87AF-4CED-B8D4-0F5E3DD29564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9892DC-87AF-4CED-B8D4-0F5E3DD29564}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
