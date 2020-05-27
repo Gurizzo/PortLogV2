@@ -42,10 +42,11 @@ namespace Repositorio
         {
             try
             {
-                var usr = db.Usuarios.Find(ci);
-                if (usr != null && usr.Password == password)
+                
+                if (db.Usuarios.Any(p => p.CI == ci && p.Password == password))// Pregunto si tiene almacenado una cedula y contraseña iguales.
                 {
-                    return usr.Rol;
+                    var usr = db.Usuarios.Find(ci);//Traigo el objeto usuario.
+                    return usr.Rol;//Retorno el nombre del rol.
                 }
                 else
                 {
