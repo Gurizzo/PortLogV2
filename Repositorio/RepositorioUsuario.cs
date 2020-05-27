@@ -74,15 +74,17 @@ namespace Repositorio
             {
                 string dirBase = AppDomain.CurrentDomain.BaseDirectory;
                 string directorio = dirBase + "\\Carga";
-                string Usuario = directorio + "\\Usuario.txt";
-                string Producto = directorio + "\\Producto.txt";
+                string usuario = directorio + "\\Usuario.txt";
+                string producto = directorio + "\\Productos.txt";
+                string cliente = directorio + "\\Cliente.txt";
+                string importacion = directorio + "\\Importaciones.txt";
                 if (!Directory.Exists(directorio))//Si no existe el directorio lo crea.
                 {
                     Directory.CreateDirectory(directorio);
                 }
-               if (File.Exists(Usuario))//Controla que exista el archivo de los usuarios a precargar
+               if (File.Exists(usuario))//Controla que exista el archivo de los usuarios a precargar
                 {
-                    StreamReader sr = new StreamReader(Usuario);
+                    StreamReader sr = new StreamReader(usuario);
                     string linea = sr.ReadLine();
                     while (linea != null)
                     {
@@ -96,19 +98,81 @@ namespace Repositorio
                         };
                         
                         linea = sr.ReadLine();
-                        if (db.Usuarios.Any(p => p.CI == u.CI))
+                        if (db.Usuarios.Any(p => p.CI != u.CI))
                         {
-                            //todo
-                        }
-                        else
-                        {
-                            
                             db.Usuarios.Add(u);
                             db.SaveChanges();
-
+                        }
+                        
+                    }
+                }
+                if (File.Exists(cliente))
+                {
+                    StreamReader sr = new StreamReader(cliente);
+                    string linea = sr.ReadLine();
+                    while (linea != null)
+                    {
+                        string separador = "#";
+                        string[] datos = linea.Split(separador.ToCharArray());
+                        Cliente c = new Cliente
+                        {
+                            Rut= datos[0],
+                            Nombre=datos[1]
+                        };
+                        linea = sr.ReadLine();
+                        if(db.Clientes.Any(p=> p.Rut != c.Rut))
+                        {
+                            db.Clientes.Add(c);
+                            db.SaveChanges();
                         }
                     }
                 }
+                if (File.Exists(producto))
+                {
+                    StreamReader sr = new StreamReader(producto);
+                    string linea = sr.ReadLine();
+                    while (linea != null)
+                    {
+                        string separador = "#";
+                        string[] datos = linea.Split(separador.ToCharArray());
+                        Producto p = new Producto
+                        {
+                            Codigo = datos[0],
+                            Nombre = datos[1],
+                            Peso = decimal.Parse(datos[3]),
+                            Cliente = db.Clientes.Find(datos[4])
+                        };
+                        linea = sr.ReadLine();
+                        if (db.Productos.Any(pro => pro.Codigo != p.Codigo))
+                        {
+                            db.Productos.Add(p);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                if (File.Exists(importacion)){
+                    StreamReader sr = new StreamReader(importacion);
+                    string linea = sr.ReadLine();
+                    while (linea != null)
+                    {
+                        string separador = "#";
+                        string[] datos = linea.Split(separador.ToCharArray());
+                        Importacion i = new Importacion
+                        {
+                            
+                            FchIngreso= Convert.ToDateTime(datos[0]),
+                            FchSalida= Convert.ToDateTime(datos[1]),
+                            Producto= db.Productos.Find(datos[3]),
+                            Precio= Convert.ToDecimal(datos[4]),
+                            Cantidad= Convert.ToInt32(datos[5]),
+                            Almacenado= Convert.ToBoolean(datos[7])
+                            
+                        };
+                        db.Importaciones.Add(i);
+                        db.SaveChanges();
+                    }
+                }
+                
                 
 
 
