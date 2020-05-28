@@ -15,7 +15,19 @@ namespace Repositorio
 
         public bool Add(Usuario obj)
         {
-            throw new NotImplementedException();
+            var validar = db.Usuarios.Where(u => u.CI == obj.CI).FirstOrDefault<Usuario>();
+            if (validar == null)
+            {
+                
+                db.Usuarios.Add(obj);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
         }
 
         public IEnumerable<Usuario> FindAll()
@@ -96,15 +108,12 @@ namespace Repositorio
                             Password = datos[1],
                             Rol = datos[2]
                         };
-                        
+                        this.Add(u);
                         linea = sr.ReadLine();
-                        if (db.Usuarios.Any(p => p.CI != u.CI))
-                        {
-                            db.Usuarios.Add(u);
-                            db.SaveChanges();
-                        }
+                        
                         
                     }
+                    
                 }
                 if (File.Exists(cliente))
                 {
@@ -129,6 +138,7 @@ namespace Repositorio
                 }
                 if (File.Exists(producto))
                 {
+                    RepositorioProducto repositorio = new RepositorioProducto();
                     StreamReader sr = new StreamReader(producto);
                     string linea = sr.ReadLine();
                     while (linea != null)
@@ -143,11 +153,7 @@ namespace Repositorio
                             Cliente = db.Clientes.Find(datos[4])
                         };
                         linea = sr.ReadLine();
-                        if (db.Productos.Any(pro => pro.Codigo != p.Codigo))
-                        {
-                            db.Productos.Add(p);
-                            db.SaveChanges();
-                        }
+                        repositorio.Add(p);
                     }
                 }
                 if (File.Exists(importacion)){
