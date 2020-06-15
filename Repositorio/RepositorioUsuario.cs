@@ -18,10 +18,13 @@ namespace Repositorio
             var validar = db.Usuarios.Where(u => u.CI == obj.CI).FirstOrDefault<Usuario>();
             if (validar == null)
             {
-                
-                db.Usuarios.Add(obj);
-                db.SaveChanges();
-                return true;
+                if (obj.Validar())
+                {
+                    db.Usuarios.Add(obj);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
             else
             {

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Dominio.Clases;
 using Repositorio;
+using PortLogV2.ViewModel.Producto;
 
 namespace PortLogV2.Controllers
 {
@@ -18,7 +19,23 @@ namespace PortLogV2.Controllers
         // GET: Productos
         public ActionResult Index()
         {
-            return View(db.FindAll());
+            List<VMProductosList> vms = new List<VMProductosList>();
+            VMProductosList vm = new VMProductosList();
+            var productos = db.FindAll();
+            
+            foreach (Producto p in productos)
+            {
+                vm.Nombre = p.Nombre;
+                vm.Codigo = p.Codigo;
+                vm.Cliente = p.Cliente.Nombre;
+                vm.Rut = p.Cliente.Rut;
+                vm.Peso = p.Peso;
+                vms.Add(vm);
+
+            }
+
+
+            return View(vms);
         }
 
         // GET: Productos/Details/5

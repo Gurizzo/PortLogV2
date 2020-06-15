@@ -2,6 +2,7 @@
 using Dominio.Interfaz;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace Repositorio
 
         public IEnumerable<Producto> FindAll()
         {
-
-            return db.Productos.ToList();
+            
+            
+            return db.Productos.Include(c=> c.Cliente).ToList();
         }
 
         public Producto FindById(object clave)

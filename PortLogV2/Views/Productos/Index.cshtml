@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Dominio.Clases.Producto>
+﻿@model IEnumerable<PortLogV2.ViewModel.Producto.VMProductosList>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,19 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Peso)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Precio)
+            @Html.DisplayNameFor(model => model.Cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rut)
         </th>
         <th></th>
     </tr>
@@ -26,18 +32,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Peso)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Precio)
+            @Html.DisplayFor(modelItem => item.Cliente)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Codigo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Codigo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Codigo })
+            @Html.DisplayFor(modelItem => item.Rut)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }
