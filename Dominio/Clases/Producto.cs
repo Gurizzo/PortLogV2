@@ -20,12 +20,21 @@ namespace Dominio.Clases
 
         public decimal Peso { get; set; }
 
-        public Cliente Cliente { get; set; }
+        public virtual Cliente Cliente { get; set; }
 
 
 
         public List<Importacion> Importaciones { get; set; }
 
+        public bool Validar()
+        {
+            if(this.Codigo!="" && this.Nombre!="" && this.Peso > 0 && this.Cliente.Validar())
+            {
+                return true;
+
+            }
+            return false;
+        }
 
         public Producto()
         {

@@ -18,7 +18,7 @@ namespace Dominio.Clases
 
         public DateTime FchSalida { get; set; }
 
-        public Producto Producto { get; set; }
+        public virtual Producto Producto { get; set; }
 
         public int Cantidad { get; set; }
 
@@ -40,6 +40,12 @@ namespace Dominio.Clases
             
                 return (this.FchSalida - this.FchIngreso ).Days;
             
+        }
+
+        public bool Validar()
+        {
+            return this.FchIngreso < this.FchSalida && this.Producto != null  && this.Precio > 0;
+
         }
             
         

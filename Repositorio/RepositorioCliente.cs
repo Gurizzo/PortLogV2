@@ -2,28 +2,28 @@
 using Dominio.Interfaz;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Repositorio
 {
-    public class RepositorioProducto : IRepositorio<Producto>
+    class RepositorioCliente : IRepositorio<Cliente>
     {
         private PortLogContext db = new PortLogContext();
 
-        public bool Add(Producto obj)
+        public bool Add(Cliente obj)
         {
-            var validar = db.Productos.Where(p => p.Codigo == obj.Codigo).FirstOrDefault<Producto>();
-            if (validar == null && obj.Validar())
+            var validar = db.Clientes.Where(c => c.Rut == obj.Rut).FirstOrDefault<Cliente>();
+            if (validar == null)
             {
-                obj.Cliente = db.Clientes.Find(obj.Cliente.Rut);
-                    db.Productos.Add(obj);
+                if (obj.Validar())
+                {
+                    db.Clientes.Add(obj);
                     db.SaveChanges();
                     return true;
-                
-                
+                }
+                return false;
             }
             else
             {
@@ -32,14 +32,12 @@ namespace Repositorio
             }
         }
 
-        public IEnumerable<Producto> FindAll()
+        public IEnumerable<Cliente> FindAll()
         {
-            
-            
-            return db.Productos.Include(c=> c.Cliente).ToList();
+            throw new NotImplementedException();
         }
 
-        public Producto FindById(object clave)
+        public Cliente FindById(object clave)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +47,7 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        public bool Update(Producto obj)
+        public bool Update(Cliente obj)
         {
             throw new NotImplementedException();
         }

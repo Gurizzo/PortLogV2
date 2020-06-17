@@ -20,11 +20,13 @@ namespace PortLogV2.Controllers
         public ActionResult Index()
         {
             List<VMProductosList> vms = new List<VMProductosList>();
-            VMProductosList vm = new VMProductosList();
+            
             var productos = db.FindAll();
             
             foreach (Producto p in productos)
             {
+                VMProductosList vm = new VMProductosList();
+
                 vm.Nombre = p.Nombre;
                 vm.Codigo = p.Codigo;
                 vm.Cliente = p.Cliente.Nombre;

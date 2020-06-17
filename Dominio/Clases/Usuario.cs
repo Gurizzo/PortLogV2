@@ -36,7 +36,7 @@ namespace Dominio.Clases
         {
             
 
-            Regex pass = new Regex(@"^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$",
+            Regex validarPass = new Regex(@"^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 
@@ -46,9 +46,9 @@ namespace Dominio.Clases
                 {
                     if(!this.CI.Contains("#") && !this.Password.Contains("#"))
                     {
-                         if (!Regex.Match(this.CI, @"^[0 - 9] *$").Success)
+                         if (Regex.Match(this.CI, @"^[0-9]{7,8} *$").Success)
                             {
-                            if (pass.IsMatch(this.Password))
+                            if (validarPass.IsMatch(this.Password))
                             {
                                 
                                 

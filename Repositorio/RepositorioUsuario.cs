@@ -120,6 +120,7 @@ namespace Repositorio
                 }
                 if (File.Exists(cliente))
                 {
+                    RepositorioCliente repocli = new RepositorioCliente();
                     StreamReader sr = new StreamReader(cliente);
                     string linea = sr.ReadLine();
                     while (linea != null)
@@ -132,11 +133,9 @@ namespace Repositorio
                             Nombre=datos[1]
                         };
                         linea = sr.ReadLine();
-                        if(db.Clientes.Any(p=> p.Rut != c.Rut))
-                        {
-                            db.Clientes.Add(c);
-                            db.SaveChanges();
-                        }
+
+                        repocli.Add(c);
+                        
                     }
                 }
                 if (File.Exists(producto))
@@ -155,30 +154,38 @@ namespace Repositorio
                             Peso = decimal.Parse(datos[3]),
                             Cliente = db.Clientes.Find(datos[4])
                         };
+                       
                         linea = sr.ReadLine();
                         repositorio.Add(p);
+                        
                     }
                 }
                 if (File.Exists(importacion)){
                     StreamReader sr = new StreamReader(importacion);
                     string linea = sr.ReadLine();
+                    RepositorioImportacion repositorioImportacion = new RepositorioImportacion();
                     while (linea != null)
                     {
                         string separador = "#";
                         string[] datos = linea.Split(separador.ToCharArray());
+                        
                         Importacion i = new Importacion
                         {
-                            
+                            Id=0,
                             FchIngreso= Convert.ToDateTime(datos[0]),
                             FchSalida= Convert.ToDateTime(datos[1]),
-                            Producto= db.Productos.Find(datos[3]),
-                            Precio= Convert.ToDecimal(datos[4]),
+                            Producto= db.Productos.Find(datos[2]),
+                        Precio = Convert.ToDecimal(datos[4]),
                             Cantidad= Convert.ToInt32(datos[5]),
-                            Almacenado= Convert.ToBoolean(datos[7])
+                            Almacenado= Convert.ToBoolean(datos[6]),
+                            
+                            
                             
                         };
-                        db.Importaciones.Add(i);
-                        db.SaveChanges();
+                        repositorioImportacion.Add(i);
+                        linea = sr.ReadLine();
+                        //db.Importaciones.Add(i);
+                        //db.SaveChanges();
                     }
                 }
                 
@@ -188,6 +195,7 @@ namespace Repositorio
             }
             catch (Exception)
             {
+                
                 return false;
             }
             finally

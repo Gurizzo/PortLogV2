@@ -14,7 +14,7 @@ namespace Repositorio
 
         public DbSet<Importacion> Importaciones { get; set; }
 
-        //public DbSet<Pais> MyProperty { get; set; }
+        
 
         public DbSet<Producto> Productos { get; set; }
 

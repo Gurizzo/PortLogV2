@@ -17,7 +17,7 @@ namespace Dominio.Clases
         public string Nombre { get; set; }
 
 
-        public List<Producto> Productos { get; set; }
+        public virtual List<Producto> Productos { get; set; }
 
 
 
@@ -27,9 +27,10 @@ namespace Dominio.Clases
 
         }
 
-
-
-
-        
+        public bool Validar()
+        {
+            
+            return this.Nombre!="" && this.Rut.Length == 12 ;
+        }
     }
 }
