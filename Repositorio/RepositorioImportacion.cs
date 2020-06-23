@@ -3,12 +3,13 @@ using Dominio.Interfaz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Repositorio
 {
-    class RepositorioImportacion : IRepositorio<Importacion>
+    public class RepositorioImportacion : IRepositorio<Importacion>
     {
         private PortLogContext db = new PortLogContext();
 
@@ -33,7 +34,21 @@ namespace Repositorio
 
         public IEnumerable<Importacion> FindAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (db)
+                {
+
+                    IEnumerable<Importacion> importaciones = db.Importaciones.Select(I => I).Include(P => P.Producto.Cliente).ToList();
+                    
+                    return importaciones;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public Importacion FindById(object clave)

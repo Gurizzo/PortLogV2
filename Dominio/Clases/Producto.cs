@@ -24,7 +24,8 @@ namespace Dominio.Clases
 
 
 
-        public List<Importacion> Importaciones { get; set; }
+
+       
 
         public bool Validar()
         {

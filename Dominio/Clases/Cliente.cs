@@ -17,7 +17,7 @@ namespace Dominio.Clases
         public string Nombre { get; set; }
 
 
-        public virtual List<Producto> Productos { get; set; }
+        
 
 
 
