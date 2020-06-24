@@ -60,7 +60,7 @@ namespace Repositorio
         {
             IEnumerable<Importacion> importaciones = null;
             //todo Filtro
-            if (dato == null)
+            if (dato == "")
             {
                 return this.FindAll();
             }
@@ -72,7 +72,7 @@ namespace Repositorio
                return BuscarPorFecha(DateTime.Parse(dato));
 
             }
-            else if(dato.Length==12 && int.TryParse(dato,out int result))//Valido que sea 12 caracteres y solo numeros.
+            else if(dato.Length==12 && decimal.TryParse(dato,out decimal result))//Valido que sea 12 caracteres y solo numeros.
             {
                 return BuscarPorRut(dato);
                 //No es fecha
@@ -82,7 +82,7 @@ namespace Repositorio
             {
                 importaciones = BuscarPorCodigo(dato);
                 //Busco Por codigo
-                if (importaciones == null)
+                if (importaciones.ToList().Count == 0)
                 {//Busco por coincidencia en descripcion.
                     importaciones = BuscarPorCoincidencia(dato);
                 }

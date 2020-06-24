@@ -28,6 +28,19 @@ namespace ApiPortLogV2.Controllers
             return "value";
         }
 
+        
+        [Route("api/Importaciones/getFilter/{dato}", Name= "getFilter")]
+        public IHttpActionResult GetFilter(string dato)
+        {
+            var importaciones = repo.Find(dato);
+            if (importaciones.ToList().Count ==0 )
+                return NotFound();
+            return Ok(importaciones);
+
+        }
+
+
+
         // POST: api/Importaciones
         public void Post([FromBody]string value)
         {
