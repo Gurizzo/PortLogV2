@@ -58,26 +58,60 @@ namespace Repositorio
 
         public IEnumerable<Importacion> Find(string dato)
         {
+            IEnumerable<Importacion> importaciones = null;
             //todo Filtro
-            if(dato == null)
+            if (dato == null)
             {
                 return this.FindAll();
             }
             bool validarFecha = DateTime.TryParse(dato,out DateTime p);
+
             if (validarFecha)
             {
-                //todo si es una fecha buscar por fecha
+
+               return BuscarPorFecha(DateTime.Parse(dato));
+
+            }
+            else if(dato.Length==12 && int.TryParse(dato,out int result))//Valido que sea 12 caracteres y solo numeros.
+            {
+                return BuscarPorRut(dato);
+                //No es fecha
+                //Busco Por rut
             }
             else
             {
-                //No es fecha
+                importaciones = BuscarPorCodigo(dato);
                 //Busco Por codigo
-                //Busco por RUT
-                //Busco por coincidencia en descripcion.
+                if (importaciones == null)
+                {//Busco por coincidencia en descripcion.
+                    importaciones = BuscarPorCoincidencia(dato);
+                }
+                return importaciones;
+
             }
 
 
-            throw new NotImplementedException();
+            
+        }
+
+        private IEnumerable<Importacion> BuscarPorCoincidencia(string dato)
+        {
+            return db.Importaciones.Where(I => I.Producto.Nombre.Contains(dato)).ToList();
+        }
+
+        private IEnumerable<Importacion> BuscarPorCodigo(string dato)
+        {
+            return db.Importaciones.Where(i => i.Producto.Codigo == dato).ToList();
+        }
+
+        private IEnumerable<Importacion> BuscarPorRut(string dato)//Busco por rut.
+        {
+            return db.Importaciones.Where(I => I.Producto.Cliente.Rut == dato).ToList();
+        }
+
+        private IEnumerable<Importacion> BuscarPorFecha(DateTime fecha)//Busco por Fecha mayor y almacenado
+        {
+            return db.Importaciones.Where(I => I.FchSalida > fecha && I.Almacenado == true).ToList();
         }
 
         public bool Remove(object clave)

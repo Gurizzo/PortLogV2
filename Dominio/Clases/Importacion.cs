@@ -26,6 +26,10 @@ namespace Dominio.Clases
 
         public bool Almacenado { get; set; }
 
+        public string MatriculaCamion { get; set; }
+
+        public string CedulaEncargado { get; set; }
+
 
 
         public Importacion()
