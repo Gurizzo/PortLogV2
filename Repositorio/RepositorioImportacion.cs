@@ -56,62 +56,90 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Importacion> Find(string dato)
+        public IEnumerable<Importacion> Find(string dato,string categoria)
         {
-            IEnumerable<Importacion> importaciones = null;
-            //todo Filtro
-            if (dato == "")
+
+            //todo caso que llegue vacio
+            if (dato == null )
             {
                 return this.FindAll();
             }
-            bool validarFecha = DateTime.TryParse(dato,out DateTime p);
 
-            if (validarFecha)
+            switch (categoria)
             {
+                case "Fecha":
+                    bool validarFecha = DateTime.TryParse(dato, out DateTime p);
 
-               return BuscarPorFecha(DateTime.Parse(dato));
+                    if (validarFecha)
+                    {
 
-            }
-            else if(dato.Length==12 && decimal.TryParse(dato,out decimal result))//Valido que sea 12 caracteres y solo numeros.
-            {
-                return BuscarPorRut(dato);
-                //No es fecha
-                //Busco Por rut
-            }
-            else
-            {
-                importaciones = BuscarPorCodigo(dato);
-                //Busco Por codigo
-                if (importaciones.ToList().Count == 0)
-                {//Busco por coincidencia en descripcion.
-                    importaciones = BuscarPorCoincidencia(dato);
-                }
-                return importaciones;
+                        return BuscarPorFecha(DateTime.Parse(dato));
 
+                    }; break;
+
+                case "Rut": return BuscarPorRut(dato);
+
+                case "Codigo": return BuscarPorCodigo(dato);
+
+                case "Nombre": return BuscarPorCoincidencia(dato);
             }
 
-
-            
+            return this.FindAll();
+ 
         }
 
         private IEnumerable<Importacion> BuscarPorCoincidencia(string dato)
         {
-            return db.Importaciones.Where(I => I.Producto.Nombre.Contains(dato)).ToList();
+            try
+            {
+                return db.Importaciones.Where(I => I.Producto.Nombre.Contains(dato)).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+            
         }
 
         private IEnumerable<Importacion> BuscarPorCodigo(string dato)
         {
-            return db.Importaciones.Where(i => i.Producto.Codigo == dato).ToList();
+            try
+            {
+                return db.Importaciones.Where(i => i.Producto.Codigo == dato).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+           
         }
 
         private IEnumerable<Importacion> BuscarPorRut(string dato)//Busco por rut.
         {
-            return db.Importaciones.Where(I => I.Producto.Cliente.Rut == dato).ToList();
+            try
+            {
+                return db.Importaciones.Where(I => I.Producto.Cliente.Rut == dato).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         private IEnumerable<Importacion> BuscarPorFecha(DateTime fecha)//Busco por Fecha mayor y almacenado
         {
-            return db.Importaciones.Where(I => I.FchSalida > fecha && I.Almacenado == true).ToList();
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public bool Remove(object clave)

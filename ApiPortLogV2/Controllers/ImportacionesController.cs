@@ -29,10 +29,10 @@ namespace ApiPortLogV2.Controllers
         }
 
         
-        [Route("api/Importaciones/getFilter/{dato}", Name= "getFilter")]
-        public IHttpActionResult GetFilter(string dato)
+        [Route("api/Importaciones/getFilter/{dato},{categoria}", Name= "getFilter")]
+        public IHttpActionResult GetFilter(string dato,string categoria)
         {
-            var importaciones = repo.Find(dato);
+            var importaciones = repo.Find(dato,categoria);
             if (importaciones.ToList().Count ==0 )
                 return NotFound();
             return Ok(importaciones);
