@@ -41,8 +41,9 @@ namespace PortLogV2.Controllers
             return View(db.Importaciones.ToList());
         }
 
-        // GET: Importaciones/Details/5
-        public ActionResult Details(int id)
+        // GET: Importaciones/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
 
 
@@ -57,7 +58,7 @@ namespace PortLogV2.Controllers
 
                     if (Importacion != null )
                     {
-                        VMImportacionesDetail vm = new VMImportacionesDetail()
+                        VMImportacionesEdit vm = new VMImportacionesEdit()
                         {
                             Cedula = "Prueba",
                             Almacenado = Importacion.Almacenado,
@@ -87,6 +88,13 @@ namespace PortLogV2.Controllers
             }
 
             return View("Filtro");
+        }
+        [HttpPost]
+        public ActionResult Edit(VMImportacionesEdit vM)
+        {
+
+            //Todo
+            return View();
         }
 
         // GET: Importaciones/Create
@@ -233,36 +241,6 @@ namespace PortLogV2.Controllers
             return View(importacion);
         }
 
-        // GET: Importaciones/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Importacion importacion = db.Importaciones.Find(id);
-            if (importacion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(importacion);
-        }
-
-        // POST: Importaciones/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FchIngreso,FchSalida,Cantidad,Precio,Almacenado,MatriculaCamion,CedulaEncargado")] Importacion importacion)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(importacion).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(importacion);
-        }
 
         // GET: Importaciones/Delete/5
         public ActionResult Delete(int? id)

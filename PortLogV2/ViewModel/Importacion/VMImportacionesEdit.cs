@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PortLogV2.ViewModel.Importacion
 {
-    public class VMImportacionesDetail
+    public class VMImportacionesEdit
     {
         public int Id { get; set; }
 

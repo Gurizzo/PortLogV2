@@ -140,7 +140,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\Importacion\VMImportacionesDetail.cs" />
+    <Compile Include="ViewModel\Importacion\VMImportacionesEdit.cs" />
     <Compile Include="ViewModel\Importacion\VMImportacionFiltro.cs" />
     <Compile Include="ViewModel\Producto\VMProductosList.cs" />
     <Compile Include="ViewModel\Usuario\VMUsuario.cs" />
@@ -274,7 +274,6 @@
     <Content Include="Views\Usuarios\Login.cshtml" />
     <Content Include="Views\Productos\Index.cshtml" />
     <Content Include="Views\Importaciones\Delete.cshtml" />
-    <Content Include="Views\Importaciones\Edit.cshtml" />
     <Content Include="Views\Importaciones\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -287,7 +286,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Importaciones\Filtro.cshtml" />
-    <Content Include="Views\Importaciones\Details.cshtml" />
+    <Content Include="Views\Importaciones\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
