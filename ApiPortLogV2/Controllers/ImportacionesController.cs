@@ -24,9 +24,25 @@ namespace ApiPortLogV2.Controllers
         }
 
         // GET: api/Importaciones/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            var importacion = repo.FindById(id);
+            if (importacion != null)
+            {
+                return Ok(new ImportacionesVM()
+                {
+                    Almacenado=importacion.Almacenado,
+                    Cantidad=importacion.Cantidad,
+                    Cliente=importacion.Producto.Cliente.Rut,
+                    Producto=importacion.Producto.Nombre,
+                    FchIngreso=importacion.FchIngreso,
+                    FchSalidaPrevista = importacion.FchSalidaPrevista,
+                    Id=importacion.Id,
+                    Precio=importacion.Precio
+                    
+                });
+            }
+            return NotFound();
         }
 
         

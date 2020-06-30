@@ -44,26 +44,49 @@ namespace PortLogV2.Controllers
         // GET: Importaciones/Details/5
         public ActionResult Details(int id)
         {
-            
-            Importacion importacion = dbEjemplo.FindById(id);
-            if (importacion != null)
+
+
+            try
             {
-                VMImportacionesDetail vm = new VMImportacionesDetail()
+                response = cliente.GetAsync(ImportacionUri +"/"+id).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    Almacenado=importacion.Almacenado,
-                    Cantidad=importacion.Cantidad,
-                    Cedula="probando",
-                    Cliente=importacion.Producto.Cliente.Rut,
-                    Producto=importacion.Producto.Nombre,
-                    FchIngreso=importacion.FchIngreso,
-                    FchSalidaPrevista=importacion.FchSalidaPrevista,
-                    Id=importacion.Id,
-                    Precio=importacion.Precio
-                };
-                return View(vm);
-                
+                    var readTask = response.Content.ReadAsAsync<ImportacionesVM>();
+                    readTask.Wait();
+                    var Importacion = readTask.Result;
+
+                    if (Importacion != null )
+                    {
+                        VMImportacionesDetail vm = new VMImportacionesDetail()
+                        {
+                            Cedula = "Prueba",
+                            Almacenado = Importacion.Almacenado,
+                            Cantidad = Importacion.Cantidad,
+                            Cliente = Importacion.Cliente,
+                            Producto = Importacion.Producto,
+                            FchIngreso = Importacion.FchIngreso,
+                            FchSalida = Importacion.FchSalida,
+                            FchSalidaPrevista = Importacion.FchSalidaPrevista,
+                            Id = Importacion.Id,
+                            Precio = Importacion.Precio
+                        };
+                        
+                        return View(vm);
+                    }
+                    else
+                    {
+                        return View("Filtro");
+                    }
+
+                }
             }
-            return HttpNotFound();
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return View("Filtro");
         }
 
         // GET: Importaciones/Create
