@@ -37,7 +37,7 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        public Cliente FindById(object clave)
+        public Cliente FindById(int clave)
         {
             throw new NotImplementedException();
         }

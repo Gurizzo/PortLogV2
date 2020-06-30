@@ -16,7 +16,7 @@ namespace Dominio.Clases
 
         public DateTime FchIngreso { get; set; }
 
-        public DateTime FchSalida { get; set; }
+        public DateTime FchSalidaPrevista { get; set; }
 
         public virtual Producto Producto { get; set; }
 
@@ -30,6 +30,9 @@ namespace Dominio.Clases
 
         public string CedulaEncargado { get; set; }
 
+        public DateTime? FechaSalidaFinal { get; set; }
+       
+
 
 
         public Importacion()
@@ -42,13 +45,13 @@ namespace Dominio.Clases
         public int CalcularDias()
         {
             
-                return (this.FchSalida - this.FchIngreso ).Days;
+                return (this.FchSalidaPrevista - this.FchIngreso ).Days;
             
         }
 
         public bool Validar()
         {
-            return this.FchIngreso < this.FchSalida && this.Producto != null  && this.Precio > 0;
+            return this.FchIngreso < this.FchSalidaPrevista && this.Producto != null  && this.Precio > 0;
 
         }
             

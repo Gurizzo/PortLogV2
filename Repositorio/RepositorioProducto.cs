@@ -39,7 +39,7 @@ namespace Repositorio
             return db.Productos.Include(c=> c.Cliente).ToList();
         }
 
-        public Producto FindById(object clave)
+        public Producto FindById(int clave)
         {
             throw new NotImplementedException();
         }

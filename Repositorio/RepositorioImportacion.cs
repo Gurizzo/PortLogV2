@@ -46,15 +46,21 @@ namespace Repositorio
             }
             catch (Exception ex)
             {
-
+                
                 return null;
             }
         }
 
-        public Importacion FindById(object clave)
+        
+
+        public Importacion FindById(int clave)
         {
-            throw new NotImplementedException();
+
+            return  db.Importaciones.Find(clave);             
+            
         }
+
+        
 
         public IEnumerable<Importacion> Find(string dato,string categoria)
         {
@@ -133,7 +139,7 @@ namespace Repositorio
         {
             try
             {
-                
+                return db.Importaciones.Where(I => I.FchSalidaPrevista < fecha && I.Almacenado==true).ToList();
             }
             catch (Exception ex)
             {

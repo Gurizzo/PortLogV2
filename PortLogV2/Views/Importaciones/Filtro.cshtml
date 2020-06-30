@@ -1,0 +1,95 @@
+﻿@model IEnumerable<PortLogV2.ViewModel.Importacion.VMImportacionFiltro>
+
+@{
+    ViewBag.Title = "Filtro";
+}
+
+<h2>Filtro</h2>
+
+
+@using (Html.BeginForm())
+{
+
+<div class="form-group">
+    <p>
+        Buscar: <input type="text" name="Buscar">
+               <select asp-for="categoria">
+                   @foreach (var opcion in ViewBag.Opciones)
+                   {
+                       <option value=@opcion.Value >@opcion.Text</option>
+                   }
+               </select>
+        <input type="submit" value="Filtrar" />
+    </p>
+    </div>
+}
+
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FchIngreso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FchSalida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Producto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Almacenado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FchIngreso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FchSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Almacenado)
+            </td>
+            <td>
+                @if (item.Almacenado )
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.Id });
+
+
+                }
+
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,4 +1,5 @@
-﻿using Repositorio;
+﻿using ApiPortLogV2.Models;
+using Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,44 @@ namespace ApiPortLogV2.Controllers
         }
 
         
-        [Route("api/Importaciones/getFilter/{dato},{categoria}", Name= "getFilter")]
+        [Route("api/Importaciones/getFilter/{categoria}&{dato}dato", Name= "getFilter")]
         public IHttpActionResult GetFilter(string dato,string categoria)
         {
+            
             var importaciones = repo.Find(dato,categoria);
-            if (importaciones.ToList().Count ==0 )
+            if (importaciones.ToList().Count ==0)
+            {
                 return NotFound();
+            }
+                
+
             return Ok(importaciones);
+
+        }
+
+        [Route("api/Importaciones/getFilter/")]
+        public IHttpActionResult GetFilter()
+        {
+            List<ImportacionesVM> importaciones = new List<ImportacionesVM>();
+            var respuesta = repo.FindAll();
+            if (respuesta != null)
+            {
+                
+                return Ok(respuesta.Select(i => new ImportacionesVM
+                {
+                    Almacenado=i.Almacenado,
+                    Cantidad=i.Cantidad,
+                    Cliente=i.Producto.Cliente.Rut,
+                    Producto=i.Producto.Nombre,
+                    FchIngreso=i.FchIngreso,
+                    FchSalida=i.FchSalidaPrevista,
+                    Id=i.Id,
+                    Precio=i.Precio
+                }).ToList());
+            }
+           
+                
+            return NotFound();
 
         }
 

@@ -10,7 +10,7 @@ namespace Dominio.Interfaz
     {
         bool Add(T obj);
 
-        T FindById(object clave);
+        T FindById(int clave);
 
         IEnumerable<T> FindAll();
 

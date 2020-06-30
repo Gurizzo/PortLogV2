@@ -1,0 +1,74 @@
+﻿@model Dominio.Clases.Importacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Importacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FchIngreso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FchIngreso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FchSalidaPrevista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FchSalidaPrevista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Almacenado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Almacenado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MatriculaCamion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatriculaCamion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CedulaEncargado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CedulaEncargado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -38,7 +38,7 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        public Usuario FindById(object clave)
+        public Usuario FindById(int clave)
         {
             throw new NotImplementedException();
         }
@@ -173,7 +173,7 @@ namespace Repositorio
                         {
                             Id=0,
                             FchIngreso= Convert.ToDateTime(datos[0]),
-                            FchSalida= Convert.ToDateTime(datos[1]),
+                            FchSalidaPrevista = Convert.ToDateTime(datos[1]),
                             Producto= db.Productos.Find(datos[2]),
                         Precio = Convert.ToDecimal(datos[4]),
                             Cantidad= Convert.ToInt32(datos[5]),
