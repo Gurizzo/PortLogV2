@@ -92,8 +92,36 @@ namespace PortLogV2.Controllers
         [HttpPost]
         public ActionResult Edit(VMImportacionesEdit vM)
         {
+            /*api / Importaciones /*/
 
-            //Todo
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var tarea = cliente.PutAsJsonAsync(ImportacionUri + "/" + vM.Id, vM);
+
+                    var result = tarea.Result;
+
+
+                    if (result.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Filtro");
+                    }
+                    return View();
+                }
+                
+
+                //HTTP POST
+               
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
             return View();
         }
 

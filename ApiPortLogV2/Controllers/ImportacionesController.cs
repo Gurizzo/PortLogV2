@@ -107,9 +107,9 @@ namespace ApiPortLogV2.Controllers
         public void Post([FromBody]string value)
         {
         }
-
-        // PUT: api/Importaciones/5
-        public IHttpActionResult Put(ImportacionesVM model)
+        
+        // PUT: api/Importaciones/
+        public IHttpActionResult Put(int id, [FromBody] ImportacionesVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -117,27 +117,29 @@ namespace ApiPortLogV2.Controllers
             }
             try
             {
-                var existe = repo.FindById(model.Id);
+                var existe = repo.FindById(id);
 
                 if (existe != null)
                 {
                     Importacion imp = new Importacion() {
-                        Id=model.Id,
+                        Id=id,
                         CedulaEncargado=model.Cedula,
                         FechaSalidaFinal=model.FchSalidaPrevista,
                         MatriculaCamion=model.Matricula
                     };
 
                     repo.Update(imp);
+                    return Ok(model);
                 }
+                return NotFound();
             }
             catch (Exception)
             {
-
+                
                 throw;
             }
 
-            return NotFound();
+            
         }
 
         // DELETE: api/Importaciones/5
