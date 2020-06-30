@@ -1,4 +1,5 @@
 ﻿using ApiPortLogV2.Models;
+using Dominio.Clases;
 using Repositorio;
 using System;
 using System.Collections.Generic;
@@ -108,8 +109,35 @@ namespace ApiPortLogV2.Controllers
         }
 
         // PUT: api/Importaciones/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(ImportacionesVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Modelo no valido");
+            }
+            try
+            {
+                var existe = repo.FindById(model.Id);
+
+                if (existe != null)
+                {
+                    Importacion imp = new Importacion() {
+                        Id=model.Id,
+                        CedulaEncargado=model.Cedula,
+                        FechaSalidaFinal=model.FchSalidaPrevista,
+                        MatriculaCamion=model.Matricula
+                    };
+
+                    repo.Update(imp);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return NotFound();
         }
 
         // DELETE: api/Importaciones/5

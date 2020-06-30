@@ -155,7 +155,25 @@ namespace Repositorio
 
         public bool Update(Importacion obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var importacion = db.Importaciones.Find(obj.Id);
+
+                importacion.MatriculaCamion = obj.MatriculaCamion;
+                importacion.CedulaEncargado = obj.CedulaEncargado;
+                importacion.FechaSalidaFinal = DateTime.Today;
+
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                
+                return false;
+            }
+
+            
         }
     }
 }

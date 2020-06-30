@@ -31,6 +31,11 @@ namespace ApiPortLogV2.Models
 
         public bool Almacenado { get; set; }
 
+        public string Matricula { get; set; }
+
+        public string Cedula { get; set; }
+
+
         public override string ToString()
         {
             return base.ToString();
