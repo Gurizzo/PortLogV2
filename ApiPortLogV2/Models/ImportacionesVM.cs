@@ -12,9 +12,13 @@ namespace ApiPortLogV2.Models
         
         public DateTime FchIngreso { get; set; }
 
-        public DateTime FchSalida { get; set; }
 
-        
+        public DateTime FchSalidaPrevista { get; set; }
+
+
+        public DateTime? FchSalida { get; set; }
+
+
         public string Producto { get; set; }
 
         

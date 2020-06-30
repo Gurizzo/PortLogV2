@@ -46,11 +46,24 @@ namespace PortLogV2.Controllers
         {
             
             Importacion importacion = dbEjemplo.FindById(id);
-            if (importacion == null)
+            if (importacion != null)
             {
-                return HttpNotFound();
+                VMImportacionesDetail vm = new VMImportacionesDetail()
+                {
+                    Almacenado=importacion.Almacenado,
+                    Cantidad=importacion.Cantidad,
+                    Cedula="probando",
+                    Cliente=importacion.Producto.Cliente.Rut,
+                    Producto=importacion.Producto.Nombre,
+                    FchIngreso=importacion.FchIngreso,
+                    FchSalidaPrevista=importacion.FchSalidaPrevista,
+                    Id=importacion.Id,
+                    Precio=importacion.Precio
+                };
+                return View(vm);
+                
             }
-            return View(importacion);
+            return HttpNotFound();
         }
 
         // GET: Importaciones/Create
@@ -69,7 +82,7 @@ namespace PortLogV2.Controllers
 
             try
             {
-                response = cliente.GetAsync(ImportacionUri+ "/getFilter").Result;
+                response = cliente.GetAsync(ImportacionUri+ "/getFilter"+"/").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var readTask = response.Content.ReadAsAsync<IEnumerable<ImportacionesVM>>();
@@ -86,6 +99,7 @@ namespace PortLogV2.Controllers
                             Producto = i.Producto,
                             FchIngreso = i.FchIngreso,
                             FchSalida = i.FchSalida,
+                            FchSalidaPrevista=i.FchSalidaPrevista,
                             Id = i.Id,
                             Precio = i.Precio
                         });
@@ -110,10 +124,57 @@ namespace PortLogV2.Controllers
         [HttpPost]
         public ActionResult Filtro(string Buscar,string categoria)
         {
-            
+            if (Buscar.Contains("/"))
+            {
+                Buscar = Buscar.Replace("/", "-");
+                //( •_•)>⌐■-■  
+                //you will shall not pass
+                //(⌐■_■)
+            }
+
+            IEnumerable<ImportacionesVM> Importaciones = null;
 
             ViewBag.Opciones = Opciones();
-            return View();
+
+            try
+            {
+                response = cliente.GetAsync(ImportacionUri + "/getFilter" + "/"+categoria+"/"+Buscar).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var readTask = response.Content.ReadAsAsync<IEnumerable<ImportacionesVM>>();
+                    readTask.Wait();
+                    Importaciones = readTask.Result.ToList();
+
+                    if (Importaciones != null && Importaciones.Count() > 0)
+                    {
+                        var lista = Importaciones.Select(i => new VMImportacionFiltro
+                        {
+                            Almacenado = i.Almacenado,
+                            Cantidad = i.Cantidad,
+                            Cliente = i.Cliente,
+                            Producto = i.Producto,
+                            FchIngreso = i.FchIngreso,
+                            FchSalida = i.FchSalida,
+                            FchSalidaPrevista = i.FchSalidaPrevista,
+                            Id = i.Id,
+                            Precio = i.Precio
+                        });
+                        return View("Filtro", lista.ToList());
+                    }
+                    else
+                    {
+                        return View(Importaciones);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return View(Importaciones);
         }
         
 

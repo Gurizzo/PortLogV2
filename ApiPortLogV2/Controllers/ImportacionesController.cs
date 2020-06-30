@@ -30,18 +30,30 @@ namespace ApiPortLogV2.Controllers
         }
 
         
-        [Route("api/Importaciones/getFilter/{categoria}&{dato}dato", Name= "getFilter")]
+        [Route("api/Importaciones/getFilter/{categoria}/{dato}", Name= "getFilter")]
         public IHttpActionResult GetFilter(string dato,string categoria)
         {
             
             var importaciones = repo.Find(dato,categoria);
-            if (importaciones.ToList().Count ==0)
+            if (importaciones != null)
             {
-                return NotFound();
-            }
-                
 
-            return Ok(importaciones);
+                return Ok(importaciones.Select(i => new ImportacionesVM
+                {
+                    Almacenado = i.Almacenado,
+                    Cantidad = i.Cantidad,
+                    Cliente = i.Producto.Cliente.Rut,
+                    Producto = i.Producto.Nombre,
+                    FchIngreso = i.FchIngreso,
+                    FchSalidaPrevista = i.FchSalidaPrevista,
+                    FchSalida = i.FechaSalidaFinal,
+                    Id = i.Id,
+                    Precio = i.Precio
+                }).ToList());
+            }
+
+
+            return NotFound();
 
         }
 
@@ -60,7 +72,8 @@ namespace ApiPortLogV2.Controllers
                     Cliente=i.Producto.Cliente.Rut,
                     Producto=i.Producto.Nombre,
                     FchIngreso=i.FchIngreso,
-                    FchSalida=i.FchSalidaPrevista,
+                    FchSalidaPrevista=i.FchSalidaPrevista,
+                    FchSalida=i.FechaSalidaFinal,
                     Id=i.Id,
                     Precio=i.Precio
                 }).ToList());

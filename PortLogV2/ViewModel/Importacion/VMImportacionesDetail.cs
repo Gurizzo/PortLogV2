@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PortLogV2.ViewModel.Importacion
 {
-    public class VMImportacionFiltro
+    public class VMImportacionesDetail
     {
         public int Id { get; set; }
 
@@ -23,7 +23,7 @@ namespace PortLogV2.ViewModel.Importacion
         public DateTime? FchSalida { get; set; }
 
         [Display(Name = "Nombre del Producto")]
-        public  string Producto { get; set; }
+        public string Producto { get; set; }
 
         [Display(Name = "RUT del cliente")]
         public string Cliente { get; set; }
@@ -35,11 +35,8 @@ namespace PortLogV2.ViewModel.Importacion
 
         public bool Almacenado { get; set; }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-
+        public string  Cedula { get; set; }
+        
+        public string Matricula { get; set; }
     }
 }

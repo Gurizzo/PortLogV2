@@ -6,33 +6,29 @@
 
 <h2>Filtro</h2>
 
-
 @using (Html.BeginForm())
 {
 
-<div class="form-group">
-    <p>
-        Buscar: <input type="text" name="Buscar">
-               <select asp-for="categoria">
-                   @foreach (var opcion in ViewBag.Opciones)
-                   {
-                       <option value=@opcion.Value >@opcion.Text</option>
-                   }
-               </select>
-        <input type="submit" value="Filtrar" />
-    </p>
+    <div class="form-group">
+        <p>
+            Buscar: <input type="text" name="Buscar">
+            <select name="categoria" >
+                @foreach (var opcion in ViewBag.Opciones)
+                {
+                    <option value=@opcion.Value>@opcion.Text</option>
+                }
+            </select>
+            <input type="submit" value="Filtrar" />
+        </p>
     </div>
 }
-
-
-
-
-
-
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FchIngreso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FchSalidaPrevista)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FchSalida)
@@ -62,6 +58,9 @@
                 @Html.DisplayFor(modelItem => item.FchIngreso)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.FchSalidaPrevista)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.FchSalida)
             </td>
             <td>
@@ -80,11 +79,9 @@
                 @Html.DisplayFor(modelItem => item.Almacenado)
             </td>
             <td>
-                @if (item.Almacenado )
+                @if (item.Almacenado)
                 {
-                    @Html.ActionLink("Details", "Details", new { id = item.Id });
-
-
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
                 }
 
 
