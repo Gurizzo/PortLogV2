@@ -35,6 +35,12 @@ namespace PortLogV2.ViewModel.Importacion
 
         public bool Almacenado { get; set; }
 
+        [Display(Name = "Cedula del encargado")]
+        public string CedulaEncargado { get; set; }
+
+        [Display(Name = "Matricula del camion")]
+        public string Matricula { get; set; }
+
         public override string ToString()
         {
             return base.ToString();

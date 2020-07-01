@@ -81,7 +81,13 @@ namespace Repositorio
 
                         return BuscarPorFecha(DateTime.Parse(dato));
 
-                    }; break;
+                    }
+                    else
+                    {
+                         IEnumerable<Importacion> Importacion = null;
+                        return Importacion;
+                    }
+                    
 
                 case "Rut": return BuscarPorRut(dato);
 

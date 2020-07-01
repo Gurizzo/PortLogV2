@@ -166,7 +166,10 @@ namespace PortLogV2.Controllers
                             FchSalida = i.FchSalida,
                             FchSalidaPrevista=i.FchSalidaPrevista,
                             Id = i.Id,
-                            Precio = i.Precio
+                            Precio = i.Precio,
+                            CedulaEncargado=i.Cedula,
+                            Matricula=i.Matricula
+                            
                         });
                         return View("Filtro", lista.ToList());
                     }
@@ -201,7 +204,7 @@ namespace PortLogV2.Controllers
             {
                 Buscar = Buscar.Replace("/", "-");
                 //( •_•)>⌐■-■  
-                //you will shall not pass
+                //you shall not pass
                 //(⌐■_■)
             }
 
@@ -236,11 +239,17 @@ namespace PortLogV2.Controllers
                     }
                     else
                     {
-                        TempData["Fail"] = "No se encontraron importaciones";
+                        TempData["Fail"] = "No se encontraron importaciones (╯°□°）╯︵ ┻━┻";
                         IEnumerable<VMImportacionFiltro> vacia = null;
                         return View(vacia);
                     }
 
+                }
+                else
+                {
+                    TempData["Fail"] = "No se encontraron importaciones (╯°□°）╯︵ ┻━┻";
+                    IEnumerable<VMImportacionFiltro> vacia = null;
+                    return View(vacia);
                 }
             }
             catch (Exception ex)

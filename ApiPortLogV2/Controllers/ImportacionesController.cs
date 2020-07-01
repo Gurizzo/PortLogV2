@@ -39,7 +39,11 @@ namespace ApiPortLogV2.Controllers
                     FchIngreso=importacion.FchIngreso,
                     FchSalidaPrevista = importacion.FchSalidaPrevista,
                     Id=importacion.Id,
-                    Precio=importacion.Precio
+                    Precio=importacion.Precio,
+                    Cedula=importacion.CedulaEncargado,
+                    FchSalida=importacion.FechaSalidaFinal,
+                    Matricula=importacion.MatriculaCamion
+
                     
                 });
             }
@@ -65,7 +69,10 @@ namespace ApiPortLogV2.Controllers
                     FchSalidaPrevista = i.FchSalidaPrevista,
                     FchSalida = i.FechaSalidaFinal,
                     Id = i.Id,
-                    Precio = i.Precio
+                    Precio = i.Precio,
+                    Cedula=i.CedulaEncargado,
+                    Matricula=i.MatriculaCamion
+                    
                 }).ToList());
             }
 
@@ -92,7 +99,9 @@ namespace ApiPortLogV2.Controllers
                     FchSalidaPrevista=i.FchSalidaPrevista,
                     FchSalida=i.FechaSalidaFinal,
                     Id=i.Id,
-                    Precio=i.Precio
+                    Precio=i.Precio,
+                    Cedula = i.CedulaEncargado,
+                    Matricula = i.MatriculaCamion
                 }).ToList());
             }
            

@@ -36,12 +36,13 @@ namespace PortLogV2.Controllers
             {//Entro
                 Session["Rol"] = usr.Rol.ToUpper();
                 Session["Cedula"] = usr.CI;
+                TempData["Exito"] = "Conectado con exito.";
                 return RedirectToAction("Index", "Productos");
 
             }
             else
             {//No entro.
-                TempData["Fail"] = "Datos no validos.";
+                TempData["Fail"] = "Datos no validos. ";
             }
             //todo Login
 
