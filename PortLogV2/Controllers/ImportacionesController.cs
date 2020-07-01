@@ -35,17 +35,16 @@ namespace PortLogV2.Controllers
         }
 
 
-        // GET: Importaciones
-        public ActionResult Index()
-        {
-            return View(db.Importaciones.ToList());
-        }
+
 
         // GET: Importaciones/Edit/5
         [HttpGet]
         public ActionResult Edit(int id)
         {
-
+            if (Session["Rol"] == null || Session["Rol"].ToString().ToUpper().Equals("ADMIN"))
+            {
+                return RedirectToAction("LogOut", "Usuarios");
+            }
 
             try
             {
@@ -60,7 +59,7 @@ namespace PortLogV2.Controllers
                     {
                         VMImportacionesEdit vm = new VMImportacionesEdit()
                         {
-                            Cedula = "Prueba",
+                            Cedula = Session["Cedula"].ToString(),
                             Almacenado = Importacion.Almacenado,
                             Cantidad = Importacion.Cantidad,
                             Cliente = Importacion.Cliente,
@@ -93,7 +92,11 @@ namespace PortLogV2.Controllers
         public ActionResult Edit(VMImportacionesEdit vM)
         {
             /*api / Importaciones /*/
-
+            if (Session["Rol"] == null || Session["Rol"].ToString().ToUpper().Equals("ADMIN"))
+            {
+                return RedirectToAction("LogOut", "Usuarios");
+            }
+            
             try
             {
                 if (ModelState.IsValid)
@@ -105,10 +108,11 @@ namespace PortLogV2.Controllers
 
                     if (result.IsSuccessStatusCode)
                     {
-
+                        TempData["Exito"] = "Salida de importacion exitosa";
                         return RedirectToAction("Filtro");
                     }
-                    return View();
+                    TempData["Fail"] = "Error al realizar salida";
+                    return RedirectToAction("Filtro");
                 }
                 
 
@@ -119,22 +123,24 @@ namespace PortLogV2.Controllers
             catch (Exception ex)
             {
 
-                throw;
+                TempData["Fail"] = "Error al realizar salida";
+                return RedirectToAction("Filtro");
             }
 
             return View();
         }
 
-        // GET: Importaciones/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+
 
         //Get: Importaciones/Filtro
         [HttpGet]
         public ActionResult Filtro()
         {
+            if (Session["Rol"] == null)
+            {
+                return RedirectToAction("LogOut", "Usuarios");
+            }
+
             IEnumerable<ImportacionesVM> Importaciones = null;
             
             ViewBag.Opciones = Opciones();
@@ -183,6 +189,14 @@ namespace PortLogV2.Controllers
         [HttpPost]
         public ActionResult Filtro(string Buscar,string categoria)
         {
+            if (Session["Rol"] == null)
+            {
+                return RedirectToAction("LogOut", "Usuarios");
+            }
+            if (Buscar == "")
+            {
+                return RedirectToAction("Filtro", "Importaciones");
+            }
             if (Buscar.Contains("/"))
             {
                 Buscar = Buscar.Replace("/", "-");
@@ -222,7 +236,9 @@ namespace PortLogV2.Controllers
                     }
                     else
                     {
-                        return View(Importaciones);
+                        TempData["Fail"] = "No se encontraron importaciones";
+                        IEnumerable<VMImportacionFiltro> vacia = null;
+                        return View(vacia);
                     }
 
                 }
@@ -252,49 +268,11 @@ namespace PortLogV2.Controllers
             return Opciones;
         }
 
-        // POST: Importaciones/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FchIngreso,FchSalida,Cantidad,Precio,Almacenado,MatriculaCamion,CedulaEncargado")] Importacion importacion)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Importaciones.Add(importacion);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(importacion);
-        }
 
 
-        // GET: Importaciones/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Importacion importacion = db.Importaciones.Find(id);
-            if (importacion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(importacion);
-        }
 
-        // POST: Importaciones/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Importacion importacion = db.Importaciones.Find(id);
-            db.Importaciones.Remove(importacion);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+
+
 
         protected override void Dispose(bool disposing)
         {

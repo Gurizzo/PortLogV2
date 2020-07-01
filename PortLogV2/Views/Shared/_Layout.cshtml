@@ -17,13 +17,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <h1>PortLogV2</h1>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    @if (Session["Rol"] != null)
+                    {
+                        <li>@Html.ActionLink("Lista de importaciones", "Filtro", "Importaciones")</li>
+                        <li>@Html.ActionLink("Lista de productos", "Index", "Productos")</li>
+                        <li> @Html.ActionLink("Salir", "LogOut", "Usuarios")</li>
+                    }
+
+
+                    <li> @Html.ActionLink("Precarga de datos", "Precarga", "Usuarios")</li>
                 </ul>
             </div>
         </div>

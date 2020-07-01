@@ -19,6 +19,11 @@ namespace PortLogV2.Controllers
         // GET: Productos
         public ActionResult Index()
         {
+            if (Session["Rol"] == null )
+            {
+                return RedirectToAction("LogOut", "Usuarios");
+            }
+
             List<VMProductosList> vms = new List<VMProductosList>();
             
             var productos = db.FindAll();

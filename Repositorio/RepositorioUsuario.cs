@@ -53,7 +53,7 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        public string Login(string ci, string password)
+        public Usuario Login(string ci, string password)
         {
             try
             {
@@ -61,17 +61,17 @@ namespace Repositorio
                 if (db.Usuarios.Any(p => p.CI == ci && p.Password == password))// Pregunto si tiene almacenado una cedula y contraseña iguales.
                 {
                     var usr = db.Usuarios.Find(ci);//Traigo el objeto usuario.
-                    return usr.Rol;//Retorno el nombre del rol.
+                    return usr;//Retorno el usuario.
                 }
                 else
                 {
-                    return "";
+                    return null;
                 }
 
             }
             catch (Exception)
             {
-                return "";
+                return null;
             }
             finally
             {
@@ -175,13 +175,17 @@ namespace Repositorio
                             FchIngreso= Convert.ToDateTime(datos[0]),
                             FchSalidaPrevista = Convert.ToDateTime(datos[1]),
                             Producto= db.Productos.Find(datos[2]),
-                        Precio = Convert.ToDecimal(datos[4]),
+                            Precio = Convert.ToDecimal(datos[4]),
                             Cantidad= Convert.ToInt32(datos[5]),
                             Almacenado= Convert.ToBoolean(datos[6]),
                             
                             
                             
                         };
+                        if (!i.Almacenado)
+                        {
+                            i.FechaSalidaFinal = i.FchSalidaPrevista;
+                        }
                         repositorioImportacion.Add(i);
                         linea = sr.ReadLine();
                         //db.Importaciones.Add(i);

@@ -21,72 +21,83 @@
             <input type="submit" value="Filtrar" />
         </p>
     </div>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FchIngreso)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FchSalidaPrevista)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FchSalida)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Producto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Almacenado)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+     if (TempData["Exito"] != null)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FchIngreso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FchSalidaPrevista)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FchSalida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Producto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cantidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Almacenado)
-            </td>
-            <td>
-                @if (item.Almacenado)
-                {
-                    @Html.ActionLink("Importar", "Edit", new { id = item.Id })
-                }
-
-
-            </td>
-        </tr>
+        <p class="alert alert-success" id="successMessage">@TempData["Exito"]</p>
     }
+    if (TempData["Fail"] != null)
+    {
+        <p class="alert alert-danger" id="dangerMessage">@TempData["Fail"]</p>
+    }
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FchIngreso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FchSalidaPrevista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FchSalida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Almacenado)
+            </th>
+            <th></th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FchIngreso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FchSalidaPrevista)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FchSalida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Almacenado)
+                    </td>
+                    <td>
+                        @if (item.Almacenado && Session["Rol"].ToString().ToUpper().Equals("ALMACEN"))
+                        {
+                            @Html.ActionLink("Importar", "Edit", new { id = item.Id })
+                        }
 
-</table>
+
+                    </td>
+                </tr>
+            }
+        }
+
+
+    </table>

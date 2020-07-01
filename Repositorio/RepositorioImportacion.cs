@@ -162,6 +162,7 @@ namespace Repositorio
                 importacion.MatriculaCamion = obj.MatriculaCamion;
                 importacion.CedulaEncargado = obj.CedulaEncargado;
                 importacion.FechaSalidaFinal = DateTime.Today;
+                importacion.Almacenado = false;
 
                 db.SaveChanges();
                 return true;

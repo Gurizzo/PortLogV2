@@ -17,10 +17,7 @@ namespace PortLogV2.Controllers
         private RepositorioUsuario db = new RepositorioUsuario();
 
         // GET: Usuarios
-        public ActionResult Index()
-        {
-            return View();
-        }
+
 
         //Get
         [HttpGet]
@@ -34,14 +31,17 @@ namespace PortLogV2.Controllers
         [HttpPost]
         public ActionResult Login(VMUsuario vm)
         {
-            var rol = db.Login(vm.CI, vm.Password);
-            if (rol!="")
-            {
-                TempData["Exito"] = "Si";
+            var usr = db.Login(vm.CI, vm.Password);
+            if (usr !=null)
+            {//Entro
+                Session["Rol"] = usr.Rol.ToUpper();
+                Session["Cedula"] = usr.CI;
+                return RedirectToAction("Index", "Productos");
+
             }
             else
-            {
-                TempData["Fail"] = "No ";
+            {//No entro.
+                TempData["Fail"] = "Datos no validos.";
             }
             //todo Login
 
@@ -51,7 +51,15 @@ namespace PortLogV2.Controllers
         public ActionResult Precarga()
         {
             db.PreCarga();
-            return View("Login");
+            TempData["Exito"] = "Datos cargados (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧";
+            return RedirectToAction("Index", "Productos");
+        }
+
+        public ActionResult LogOut()
+        {
+            Session["Rol"] = null;
+            Session["Cedula"] = null;
+            return RedirectToAction("Login");
         }
 
 
