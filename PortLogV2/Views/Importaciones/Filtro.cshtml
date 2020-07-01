@@ -87,7 +87,7 @@
                 <td>
                     @if (item.Almacenado && Session["Rol"].ToString().ToUpper() == "ALMACEN")
                     {
-                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        @Html.ActionLink("Importar", "Edit", new { id = item.Id })
                     }
 
 

@@ -37,7 +37,7 @@ namespace PortLogV2.ViewModel.Importacion
 
         public string Cedula { get; set; }
 
-        [Display(Name = "Ingresar matricula")]
+        [Display(Name = "Ingresar matricula"),Required]
         public string Matricula { get; set; }
     }
 }
