@@ -14,6 +14,7 @@ namespace Repositorio
 
         public bool Add(Cliente obj)
         {
+            
             var validar = db.Clientes.Where(c => c.Rut == obj.Rut).FirstOrDefault<Cliente>();
             if (validar == null)
             {

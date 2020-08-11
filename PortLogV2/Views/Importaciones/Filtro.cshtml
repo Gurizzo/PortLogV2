@@ -6,6 +6,21 @@
 
 <h2>Filtro</h2>
 
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <p>
+            Buscar: <input type="text" name="Buscar">
+            <select name="categoria">
+                @foreach (var opcion in ViewBag.Opciones)
+                {
+                    <option value=@opcion.Value>@opcion.Text</option>
+                }
+            </select>
+            <input type="submit" value="Filtrar" />
+        </p>
+    </div>
+}
 @if (TempData["Exito"] != null)
 {
     <p class="alert alert-success" id="successMessage">@TempData["Exito"]</p>

@@ -16,12 +16,6 @@ namespace Dominio.Clases
 
         public string Nombre { get; set; }
 
-
-        
-
-
-
-
         public Cliente()
         {
 

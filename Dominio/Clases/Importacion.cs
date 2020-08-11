@@ -31,9 +31,7 @@ namespace Dominio.Clases
         public string CedulaEncargado { get; set; }
 
         public DateTime? FechaSalidaFinal { get; set; }
-       
-
-
+        public object MisProductos { get; set; }
 
         public Importacion()
         {
@@ -42,12 +40,7 @@ namespace Dominio.Clases
 
 
 
-        public int CalcularDias()
-        {
-            
-                return (this.FchSalidaPrevista - this.FchIngreso ).Days;
-            
-        }
+        
 
         public bool Validar()
         {

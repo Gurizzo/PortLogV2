@@ -27,7 +27,7 @@ namespace PortLogV2.Controllers
 
         public ImportacionesController()
         {
-            cliente.BaseAddress = new Uri("http://localhost:58963");
+           // cliente.BaseAddress = new Uri("http://localhost:58963");
             ImportacionUri = new Uri("http://localhost:58963/api/Importaciones");
             cliente.DefaultRequestHeaders.Accept.Clear();
             cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
